@@ -1,0 +1,38 @@
+services:
+  stable-diffusion-comfyui:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PYTORCH_IMG_VERSION: "2.6.0-cuda12.6-cudnn9"
+        COMFYUI_VERSION: "v0.3.14"
+        COMFYUI_MANAGER_VERSION: "3.25.1"
+    container_name: stable-diffusion-comfyui
+    volumes:
+      - ./sd-comfyui-data/models:/opt/comfyui/models
+      - ./sd-comfyui-data/custom_nodes:/opt/comfyui/custom_nodes
+      - ./sd-comfyui-data/workflows:/opt/comfyui/user/default/workflows
+      - ./sd-comfyui-data/output:/opt/comfyui/output
+      - ./sd-comfyui-data/input:/opt/comfyui/input
+      - ./sd-comfyui-data/manager:/opt/comfyui/user/default/ComfyUI-Manager
+      - ./sd-comfyui-data/customrequirements:/opt/customrequirements
+      - ./sd-comfyui-data/pipcache:/root/.cache/pip
+    stop_signal: SIGKILL
+    tty: true
+    restart: unless-stopped
+    ports:
+      - 8188:8188
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - CLI_ARGS=--disable-auto-launch
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities:
+                - gpu
+                - compute
+                - utility
