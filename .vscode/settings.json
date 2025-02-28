@@ -4,6 +4,7 @@
         "cuda",
         "cudnn",
         "customrequirements",
+        "Krita",
         "PGID",
         "pipcache",
         "PUID"

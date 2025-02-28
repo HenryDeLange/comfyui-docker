@@ -55,3 +55,10 @@ Set desired version numbers in the `docker-compose.yml` file's `args` section:
 - `COMFYUI_MANAGER_VERSION`
 
 Then run `docker compose build` to rebuild the image.
+
+# Krita
+
+Follow the steps:
+- https://docs.interstice.cloud/installation/
+- https://docs.interstice.cloud/comfyui-setup/
+- https://docs.interstice.cloud/basics/
