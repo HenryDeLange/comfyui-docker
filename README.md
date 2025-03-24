@@ -4,9 +4,11 @@ This is a Docker image for [ComfyUI](https://www.comfy.org/), which makes it ext
 
 ## Getting Started
 
-To get started, you have to install [Docker](https://www.docker.com/). This can be either Docker Engine, which can be installed by following the [Docker Engine Installation Manual](https://docs.docker.com/engine/install/) or Docker Desktop, which can be installed by [downloading the installer](https://www.docker.com/products/docker-desktop/) for your operating system.
+To get started, you have to install Docker: [Docker Desktop installer](https://www.docker.com/products/docker-desktop/).
 
-To enable the usage of NVIDIA GPUs, the NVIDIA Container Toolkit must be installed. The installation process is detailed in the [official documentation](https://docs.nvidia.com/datacenter/cloud-native/container-toolkit/latest/install-guide.html)
+Check that _NVIDIA Container Toolkit_ is working: The command bellow should show details of the GPU.
+
+`docker run --rm --runtime=nvidia --gpus all nvidia/cuda:12.8.1-base-ubuntu22.04 nvidia-smi`
 
 ## Installation
 
