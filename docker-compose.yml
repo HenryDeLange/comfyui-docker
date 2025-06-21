@@ -5,11 +5,11 @@ services:
       dockerfile: Dockerfile
       args:
         # https://hub.docker.com/r/pytorch/pytorch/tags
-        PYTORCH_IMG_VERSION: 2.6.0-cuda12.6-cudnn9
-        # https://github.com/comfyanonymous/ComfyUI/releases
-        COMFYUI_VERSION: v0.3.27
+        PYTORCH_IMG_VERSION: 2.7.1-cuda12.8-cudnn9
+        # https://github.com/comfyanonymous/ComfyUI/tags
+        COMFYUI_VERSION: v0.3.41
         # https://github.com/ltdrdata/ComfyUI-Manager/tags
-        COMFYUI_MANAGER_VERSION: 3.31.8
+        COMFYUI_MANAGER_VERSION: 3.33
     container_name: stable-diffusion-comfyui
     volumes:
       - ./sd-comfyui-data/models:/opt/comfyui/models

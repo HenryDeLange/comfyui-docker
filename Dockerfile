@@ -10,17 +10,23 @@ FROM pytorch/pytorch:${PYTORCH_IMG_VERSION}-runtime
 ARG COMFYUI_VERSION
 ARG COMFYUI_MANAGER_VERSION
 
-# Install all additional dependencies.
-#   git: because ComfyUI and the ComfyUI Manager are installed by cloning their respective Git repositories.
-#   sudo: required for custom user.
-#   ffmpeg: is very useful if doing video work.
-#   build-essential: is useful if you need something like sageattention and triton.
-RUN apt update --assume-yes && \
+RUN apt-get clean && \
+    rm -rf /var/lib/apt/lists/* && \
+    apt-get update --assume-yes && \
+    apt-get upgrade --assume-yes && \
+    # Install all additional dependencies.
+    #   git: because ComfyUI and the ComfyUI Manager are installed by cloning their respective Git repositories.
+    #   sudo: required for custom user.
+    #   ffmpeg: is very useful if doing video work.
+    #   build-essential: is useful if you need something like sageattention and triton.
     apt install --assume-yes \
-    git \
-    sudo \
-    ffmpeg \
-    build-essential && \
+        git \
+        sudo \
+        ffmpeg \
+        build-essential \
+        && \
+    # Clean apt cache to reduce image size.
+    apt-get clean && \
     # Clones the ComfyUI repository and checks out the specified release.
     git clone --branch ${COMFYUI_VERSION} https://github.com/comfyanonymous/ComfyUI.git /opt/comfyui && \
     # Clones the ComfyUI Manager repository and checks out the specified release.
@@ -35,11 +41,12 @@ RUN apt update --assume-yes && \
     # when the container is removed. This way, the custom nodes are installed on the host machine.
     git clone --branch ${COMFYUI_MANAGER_VERSION} https://github.com/ltdrdata/ComfyUI-Manager.git /opt/comfyui-manager && \
     # Installs the required Python packages for both ComfyUI and the ComfyUI Manager.
-    pip install --requirement /opt/comfyui/requirements.txt --requirement /opt/comfyui-manager/requirements.txt && \
+    pip install \
+        --requirement /opt/comfyui/requirements.txt \
+        --requirement /opt/comfyui-manager/requirements.txt \
+        && \
     # Clean pip cache to reduce image size.
-    pip cache purge && \
-    # Clean apt cache to reduce image size.
-    apt clean
+    pip cache purge
 
 # Sets the working directory to the ComfyUI directory.
 WORKDIR /opt/comfyui

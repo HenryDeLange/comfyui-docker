@@ -1,13 +1,20 @@
 {
     "cSpell.words": [
         "ComfyUI",
+        "controlnet",
         "cuda",
         "cudnn",
         "customrequirements",
+        "getent",
+        "gligen",
+        "hypernetworks",
         "Krita",
+        "loras",
         "PGID",
+        "photomaker",
         "pipcache",
         "PUID",
-        "sageattention"
+        "sageattention",
+        "unet"
     ]
 }
